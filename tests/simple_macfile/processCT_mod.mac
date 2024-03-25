@@ -1,0 +1,86 @@
+/vis/disable 
+/gate/geometry/setMaterialDatabase /home/snip/Source/Gate-9.2/GateMaterials.db 
+/gate/world/geometry/setXLength 4000. mm 
+/gate/world/geometry/setYLength 4000. mm 
+/gate/world/geometry/setZLength 4000. mm 
+/gate/world/vis/setVisible 0 
+/gate/world/vis/setColor black 
+/gate/world/setMaterial Vacuum 
+/gate/world/daughters/name ProcessCTscanner 
+/gate/world/daughters/insert box 
+/gate/ProcessCTscanner/geometry/setXLength 432. mm 
+/gate/ProcessCTscanner/geometry/setYLength 432. mm 
+/gate/ProcessCTscanner/geometry/setZLength 0.208 mm 
+/gate/ProcessCTscanner/placement/setTranslation 0. 0. -1.255 mm 
+/gate/ProcessCTscanner/setMaterial Vacuum 
+/gate/ProcessCTscanner/vis/forceWireframe 
+/gate/ProcessCTscanner/vis/setColor white 
+/gate/ProcessCTscanner/daughters/name module 
+/gate/ProcessCTscanner/daughters/insert box 
+/gate/module/geometry/setXLength 432. mm 
+/gate/module/geometry/setYLength 432. mm 
+/gate/module/geometry/setZLength 0.208 mm 
+/gate/module/setMaterial Gadox 
+/gate/module/vis/forceWireframe 
+/gate/module/vis/setColor white 
+/gate/systems/ProcessCTscanner/module/attach module 
+/gate/module/attachCrystalSD 
+/gate/world/daughters/name carbonLayer 
+/gate/world/daughters/insert box 
+/gate/carbonLayer/placement/setTranslation 0.0 0.0 -0.526 mm 
+/gate/carbonLayer/geometry/setXLength 432. mm 
+/gate/carbonLayer/geometry/setYLength 432. mm 
+/gate/carbonLayer/geometry/setZLength 0.750 mm 
+/gate/carbonLayer/setMaterial Carbon 
+/gate/carbonLayer/vis/forceWireframe 
+/gate/carbonLayer/vis/setColor blue 
+/gate/world/daughters/name plasticLayer 
+/gate/world/daughters/insert box 
+/gate/plasticLayer/placement/setTranslation 0.0 0.0 -1.026 mm 
+/gate/plasticLayer/geometry/setXLength 432. mm 
+/gate/plasticLayer/geometry/setYLength 432. mm 
+/gate/plasticLayer/geometry/setZLength 0.250 mm 
+/gate/plasticLayer/setMaterial Plastic 
+/gate/plasticLayer/vis/forceWireframe 
+/gate/plasticLayer/vis/setColor yellow 
+/gate/world/daughters/name my_phantom 
+/gate/world/daughters/insert cylinder 
+/gate/my_phantom/setMaterial Water 
+/gate/my_phantom/vis/setColor grey 
+/gate/my_phantom/geometry/setRmax 10. mm 
+/gate/my_phantom/geometry/setHeight 10. mm 
+/gate/my_phantom/placement/setTranslation 3.0 0.0 -200 mm 
+/gate/my_phantom/attachPhantomSD 
+/gate/physics/addPhysicsList empenelope 
+/gate/physics/processList Enabled 
+/gate/physics/processList Initialized 
+/gate/run/initialize 
+/gate/source/addSource mybeam gps 
+/gate/source/mybeam/gps/particle e- 
+/gate/source/mybeam/gps/pos/type Beam 
+/gate/source/mybeam/gps/pos/rot1 0 1 0 
+/gate/source/mybeam/gps/pos/rot2 0 0 1 
+/gate/source/mybeam/gps/pos/shape Circle 
+/gate/source/mybeam/gps/pos/centre -1 0 3.5 cm 
+/gate/source/mybeam/gps/pos/sigma_x 0.1 mm 
+/gate/source/mybeam/gps/pos/sigma_y 0.1 mm 
+/gate/source/mybeam/gps/direction 1 0 0 
+/mpiForGate/energySwipe 40 200 keV 10 
+/gate/output/ProcessCT/enable 
+/gate/output/ProcessCT/setFileName out/prova.tiff 
+/gate/output/ProcessCT/setScatterFileName out/scatter.tiff 
+/gate/output/ProcessCT/numFastPixelX 400 
+/gate/output/ProcessCT/numFastPixelY 400 
+/gate/output/ProcessCT/numFastPixelZ 1 
+/control/verbose 0 
+/run/verbose 0 
+/gate/application/verbose 0 
+/event/verbose 0 
+/tracking/verbose 0 
+/gate/random/setEngineName MersenneTwister 
+/gate/random/setEngineSeed auto 
+/gate/random/verbose 0 
+/gate/application/setNumberOfPrimariesPerRun 10000 
+/mpiForGate/nProcesses 2 
+/gate/source/mybeam/gps/pos/centre2 0 
+/gate/application/start 

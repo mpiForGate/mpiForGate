@@ -1,0 +1,5 @@
+__pycache__
+.master.log*
+*.log
+.vscode
+tests/tmp_out

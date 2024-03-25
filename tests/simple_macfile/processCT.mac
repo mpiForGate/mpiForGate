@@ -1,0 +1,164 @@
+
+########################### VISUALISATION ###########################
+/vis/disable
+#/control/execute visu.mac
+
+############################# MATERIALS ##############################
+/gate/geometry/setMaterialDatabase /home/snip/Source/Gate-9.2/GateMaterials.db
+
+############################### WORLD ################################
+/gate/world/geometry/setXLength 4000. mm
+/gate/world/geometry/setYLength 4000. mm
+/gate/world/geometry/setZLength 4000. mm
+/gate/world/vis/setVisible 0
+/gate/world/vis/setColor black
+/gate/world/setMaterial Vacuum
+
+############################## DETECTOR ##############################
+/gate/world/daughters/name ProcessCTscanner
+/gate/world/daughters/insert box
+/gate/ProcessCTscanner/geometry/setXLength 432. mm
+/gate/ProcessCTscanner/geometry/setYLength 432. mm
+/gate/ProcessCTscanner/geometry/setZLength 0.208 mm
+/gate/ProcessCTscanner/placement/setTranslation 0. 0. -1.255 mm
+/gate/ProcessCTscanner/setMaterial Vacuum
+/gate/ProcessCTscanner/vis/forceWireframe
+/gate/ProcessCTscanner/vis/setColor white
+
+/gate/ProcessCTscanner/daughters/name module
+/gate/ProcessCTscanner/daughters/insert box
+/gate/module/geometry/setXLength 432. mm
+/gate/module/geometry/setYLength 432. mm
+/gate/module/geometry/setZLength 0.208 mm
+/gate/module/setMaterial Gadox
+/gate/module/vis/forceWireframe
+/gate/module/vis/setColor white
+
+/gate/systems/ProcessCTscanner/module/attach module
+/gate/module/attachCrystalSD
+ 
+
+# carbon layer #
+/gate/world/daughters/name carbonLayer
+/gate/world/daughters/insert box
+/gate/carbonLayer/placement/setTranslation  0.0 0.0 -0.526 mm
+/gate/carbonLayer/geometry/setXLength  432. mm
+/gate/carbonLayer/geometry/setYLength  432. mm
+/gate/carbonLayer/geometry/setZLength  0.750 mm
+/gate/carbonLayer/setMaterial Carbon
+/gate/carbonLayer/vis/forceWireframe
+/gate/carbonLayer/vis/setColor blue
+
+# plastic layer #
+/gate/world/daughters/name plasticLayer
+/gate/world/daughters/insert box
+/gate/plasticLayer/placement/setTranslation  0.0 0.0 -1.026 mm
+/gate/plasticLayer/geometry/setXLength  432. mm
+/gate/plasticLayer/geometry/setYLength  432. mm
+/gate/plasticLayer/geometry/setZLength  0.250 mm
+/gate/plasticLayer/setMaterial Plastic
+/gate/plasticLayer/vis/forceWireframe
+/gate/plasticLayer/vis/setColor yellow
+
+############################## OBJECT ##############################
+#/mpiForGate/simulateRotation 0 360 10
+
+/gate/world/daughters/name my_phantom
+/gate/world/daughters/insert cylinder
+/gate/my_phantom/setMaterial Water
+/gate/my_phantom/vis/setColor grey
+/gate/my_phantom/geometry/setRmax   10. mm
+/gate/my_phantom/geometry/setHeight 10. mm
+/gate/my_phantom/placement/setTranslation  3.0 0.0 -200 mm
+/gate/my_phantom/attachPhantomSD
+
+
+############################# Digitizer ##############################
+#/control/execute Digitizer.mac
+
+############################## PHYSICS ###############################
+#/control/execute Physics.mac
+/gate/physics/addPhysicsList empenelope
+/gate/physics/processList Enabled
+/gate/physics/processList Initialized
+
+############################## INITIALISATION #######################
+/gate/run/initialize
+
+############################## SOURCE ##############################
+/gate/source/addSource mybeam gps
+/gate/source/mybeam/gps/particle e-
+/gate/source/mybeam/gps/pos/type Beam
+/gate/source/mybeam/gps/pos/rot1 0 1 0
+/gate/source/mybeam/gps/pos/rot2 0 0 1
+/gate/source/mybeam/gps/pos/shape Circle
+/gate/source/mybeam/gps/pos/centre -5 0 3.5 cm
+/gate/source/mybeam/gps/pos/sigma_x 0.1 mm
+/gate/source/mybeam/gps/pos/sigma_y 0.1 mm
+#/gate/source/mybeam/gps/ene/mono 150 keV
+#/gate/source/mybeam/gps/ene/type Gauss
+#/gate/source/mybeam/gps/ene/sigma 0.002 MeV
+/gate/source/mybeam/gps/direction 1 0 0
+/mpiForGate/energySwipe 40 200 keV 10
+
+
+############################### OUTPUT ###############################
+
+/gate/output/ProcessCT/enable
+/gate/output/ProcessCT/setFileName              out/prova.tiff
+/gate/output/ProcessCT/setScatterFileName       out/scatter.tiff
+
+/gate/output/ProcessCT/numFastPixelX 400
+/gate/output/ProcessCT/numFastPixelY 400
+/gate/output/ProcessCT/numFastPixelZ 1
+
+#/gate/output/root/enable
+#/gate/output/root/setFileName out/out.root
+
+#/gate/output/root/setRootHitFlag 1
+#/gate/output/root/setRootSinglesFlag 1
+#/gate/output/root/setRootNtupleFlag 0
+#/gate/output/root/setSaveRndmFlag 0
+
+#/gate/output/root/setRootSinglesAdderFlag 0
+#/gate/output/root/setRootSinglesBlurringFlag 0
+#/gate/output/root/setRootSinglesSpblurringFlag 0
+#/gate/output/root/setRootSinglesThresholderFlag 0
+#/gate/output/root/setRootSinglesUpholderFlag 0
+
+#/gate/output/tree/Singles/branches/runID/disable
+#/gate/output/tree/Singles/branches/eventID/disable
+#/gate/output/tree/Singles/branches/sourceID/disable
+#/gate/output/tree/Singles/branches/sourcePosX/disable
+#/gate/output/tree/Singles/branches/sourcePosY/disable
+#/gate/output/tree/Singles/branches/sourcePosZ/disable
+#/gate/output/tree/Singles/branches/time/disable
+#/gate/output/tree/Singles/branches/globalPosX/disable
+#/gate/output/tree/Singles/branches/globalPosY/disable
+#/gate/output/tree/Singles/branches/globalPosZ/disable
+#/gate/output/tree/Singles/branches/comptonCrystal/disable
+#/gate/output/tree/Singles/branches/comptonPhantom/disable
+#/gate/output/tree/Singles/branches/RayleighPhantom/disable
+#/gate/output/tree/Singles/branches/RayleighCrystal/disable
+#/gate/output/tree/Singles/branches/axialPos/disable
+#/gate/output/tree/Singles/branches/rotationAngle/disable
+#/gate/output/tree/Singles/branches/comptVolName/disable
+#/gate/output/tree/Singles/branches/RayleighVolName/disable
+
+
+############################# VERBOSITY ##############################
+/control/verbose 0
+/run/verbose 0
+/gate/application/verbose 0
+/event/verbose 0
+/tracking/verbose 0
+
+############################### RANDOM ###############################
+/gate/random/setEngineName MersenneTwister
+/gate/random/setEngineSeed auto
+/gate/random/verbose 0
+/gate/application/setNumberOfPrimariesPerRun 10000
+/mpiForGate/nProcesses 2
+
+############################### START ################################
+/gate/application/start
