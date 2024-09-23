@@ -39,6 +39,11 @@ To expedite the simulation of one projection, you may want to execute the simula
 ```
 Note that each process will simulate the same number of photons, so the total number of photons will be `nProcesses * <number of photons>`. This command can be useful not only for speeding the simulation of one projection, but also for circumventing a GATE/G4 (silent) limitation regarding the maximum number of photons that can be simulated in one run (somewhere between 10^9 and 10^10).
 
+# Citation
+If you found this repository useful, please consider to cite the [study](https://doi.org/10.1016/j.precisioneng.2024.08.006) for which this code was developed:
+
+Iuso, Domenico, et al. "PACS: Projection-driven with Adaptive CADs X-ray Scatter compensation for additive manufacturing inspection." Precision Engineering 90 (2024): 108-121.
+
 # License
 The software is released under the GNU General Public License v3.0 - See the LICENSE file for more details.
 
