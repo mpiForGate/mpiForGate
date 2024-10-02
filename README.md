@@ -43,9 +43,6 @@ Note that each process will simulate the same number of photons, so the total nu
 
 Graphical example of execution of 2 projections, with 2 computing cores and 3 repetition of the same projection. Once each available worker will first create its work description (macro file), then each of them executes the simulation and, as soon as they are done, they will send a signal to a manager process. From here, the workers will start by creating the next macro files, whilst the manager will be occupied in reading the output of previous simulations and combine them, when ready. 
 
-# Note
-Be aware that some job management system do not allow the manager process to be executes on the same cores of the worker cores. This mean that the manager process might need a core on its own.
-
 # Citation
 If you found this repository useful, please consider to cite the [study](https://doi.org/10.1016/j.precisioneng.2024.08.006) for which this code was developed:
 
@@ -59,3 +56,4 @@ The macro files that will be executed by each MPI rank will be stored in a tempo
 
 ## Notes
 - The software does not support (intentionally) cumulative calls, i.e. the output of the simulation will be overwritten at each run.
+- Be aware that some job management system do not allow the manager process to be executes on the same cores of the worker cores. This mean that the manager process might need a core on its own.
