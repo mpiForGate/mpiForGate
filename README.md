@@ -40,6 +40,7 @@ To expedite the simulation of one projection, you may want to execute the simula
 Note that each process will simulate the same number of photons, so the total number of photons will be `nProcesses * <number of photons>`. This command can be useful not only for speeding the simulation of one projection, but also for circumventing a GATE/G4 (silent) limitation regarding the maximum number of photons that can be simulated in one run (somewhere between 10^9 and 10^10).
 
 ![](resources/mpi_pipeline.gif)
+
 Graphical example of execution of 2 projections, with 2 computing cores and 3 repetition of the same projection. Once each available worker will first create its work description (macro file), then each of them executes the simulation and, as soon as they are done, they will send a signal to a manager process. From here, the workers will start by creating the next macro files, whilst the manager will be occupied in reading the output of previous simulations and combine them, when ready. 
 
 # Note
